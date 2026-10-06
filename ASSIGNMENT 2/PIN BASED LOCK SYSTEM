@@ -1,0 +1,110 @@
+#include <stdio.h>
+#include <string.h>
+#include <windows.h>
+
+int main()
+{
+    char correctPIN[] = "5050";
+    char PIN[50];
+
+    int attempts = 0;
+    int accessGranted = 0;
+    int choice;
+
+    printf("==============================\n");
+    printf("     PIN-BASED DOOR LOCK\n");
+    printf("==============================\n");
+
+    /* User has 3 attempts */
+    while (attempts < 3)
+    {
+        printf("\nEnter your 4-digit PIN: ");
+        scanf("%49s", PIN);
+
+        /* Check PIN length */
+        if (strlen(PIN) < 4)
+        {
+            printf("PIN is too short (must be 4 digits).\n");
+            continue;
+        }
+        else if (strlen(PIN) > 4)
+        {
+            printf("PIN is too long (must be 4 digits).\n");
+            continue;
+        }
+        else
+        {
+            printf("PIN is exactly 4 digits.\n");
+        }
+
+        /* Check if PIN is correct */
+        if (strcmp(PIN, correctPIN) == 0)
+        {
+            accessGranted = 1;
+
+            printf("Access granted. Door unlocked.\n");
+
+            break;
+        }
+        else
+        {
+            attempts++;
+
+            printf("Wrong PIN.\n");
+            printf("Remaining attempts: %d\n", 3 - attempts);
+        }
+    }
+
+    /* If all 3 attempts are used */
+    if (accessGranted == 0)
+    {
+        printf("\nSystem locked! Wait for 5 seconds...\n");
+
+        /* Countdown from 5 to 1 */
+        for (int i = 5; i >= 1; i--)
+        {
+            printf("%d...\n", i);
+            Sleep(1000);
+        }
+
+        printf("You can try again now.\n");
+
+        return 0;
+    }
+
+    /* Device Menu */
+    printf("\n=== Device Menu ===\n");
+    printf("1. Open Door\n");
+    printf("2. Change Username\n");
+    printf("3. Change PIN\n");
+    printf("4. Exit\n");
+
+    printf("\nEnter your choice: ");
+    scanf("%d", &choice);
+
+    /* Switch statement */
+    switch (choice)
+    {
+        case 1:
+            printf("Access granted. Door unlocked.\n");
+            break;
+
+        case 2:
+            printf("Change username feature coming soon.\n");
+            break;
+
+        case 3:
+            printf("Change PIN feature coming soon.\n");
+            break;
+
+        case 4:
+            printf("Exiting system.\n");
+            break;
+
+        default:
+            printf("Invalid option! Please try again.\n");
+            break;
+    }
+
+    return 0;
+}
